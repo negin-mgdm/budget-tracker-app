@@ -3,10 +3,8 @@ import sqlite3
 sqliteConnection = sqlite3.connect('sql.db')
 cursor = sqliteConnection.cursor()
 
-query = '''CREATE TABLE IF NOT EXISTS Expenses (
-    expense_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    category TEXT NOT NULL
-    );'''
+with open('sql/create_table_expenses.sql', 'r') as sql:
+    query = sql.read()
 
 cursor.execute(query)
 
