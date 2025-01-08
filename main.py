@@ -10,10 +10,9 @@ cursor.execute(query)
 
 
 def add_expense_category(expense):
-    query = ''' INSERT INTO Expenses (category)
-    VALUES 
-    (?);
-    '''
+    with open('sql/insert_expense_category.sql', 'r') as sql:
+        query = sql.read()
+
     cursor.execute(query, (expense,))
     sqliteConnection.commit()
 
