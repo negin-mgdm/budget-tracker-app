@@ -1,12 +1,11 @@
 import sqlite3
 
-sqliteConnection = sqlite3.connect('sql.db')
-cursor = sqliteConnection.cursor()
 
-with open('sql/create_table_expenses.sql', 'r') as sql:
-    query = sql.read()
+def create_expense_table():
+    with open('sql/create_table_expenses.sql', 'r') as sql:
+        query = sql.read()
 
-cursor.execute(query)
+    cursor.execute(query)
 
 
 def add_expense_category(expense):
@@ -17,6 +16,10 @@ def add_expense_category(expense):
     sqliteConnection.commit()
 
 
+sqliteConnection = sqlite3.connect('sql.db')
+cursor = sqliteConnection.cursor()
+
+create_expense_table()
 new_expense = input("Enter a new expense category: ")
 add_expense_category(new_expense)
 
