@@ -11,17 +11,17 @@ query = '''CREATE TABLE IF NOT EXISTS Expenses (
 cursor.execute(query)
 
 
-def add_expense_category():
+def add_expense_category(expense):
     query = ''' INSERT INTO Expenses (category)
     VALUES 
-    ('utility'),
-    ('rent');
+    (?);
     '''
-    cursor.execute(query)
+    cursor.execute(query, (expense,))
     sqliteConnection.commit()
 
 
-add_expense_category()
+new_expense = input("Enter a new expense category: ")
+add_expense_category(new_expense)
 
 cursor.close()
 sqliteConnection.close()
