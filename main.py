@@ -16,12 +16,24 @@ def add_expense_category(expense):
     sqliteConnection.commit()
 
 
+def update_expense_amount(category, amount):
+    with open('sql/update_expense_amount.sql', 'r') as sql:
+        query = sql.read()
+
+        cursor.execute(query, (amount, category))
+        sqliteConnection.commit()
+
+
 sqliteConnection = sqlite3.connect('sql.db')
 cursor = sqliteConnection.cursor()
 
 create_expense_table()
 new_expense = input("Enter a new expense category: ")
 add_expense_category(new_expense)
+category = input('Insert the category you wish to update the amount: ')
+amount = input(
+    f"Insert the updated expense amount for the '{category}' category: ")
+update_expense_amount(category, amount)
 
 cursor.close()
 sqliteConnection.close()

@@ -1,1 +1,1 @@
-INSERT INTO Expenses (category) VALUES (?);
+INSERT INTO Expenses (category, amount) VALUES (?, 0) ;
