@@ -28,13 +28,21 @@ sqliteConnection = sqlite3.connect("sql.db")
 cursor = sqliteConnection.cursor()
 
 create_expense_table()
-new_expense = input("Enter a new expense category: ")
-add_expense_category(new_expense)
 
-category = input("Insert the category you wish to update the amount: ")
-amount = input(
-    f"Insert the updated expense amount for the '{category}' category: ")
-update_expense_amount(category, amount)
+menu = '''1. Add a new expense category 
+2. Update a category amount
+Please enter your option from the above menu: '''
+
+option = int(input(menu))
+if option == 1:
+    new_expense = input("Enter a new expense category: ")
+    add_expense_category(new_expense)
+
+elif option == 2:
+    category = input("Insert the category you wish to update the amount: ")
+    amount = input(
+        f"Insert the updated expense amount for the '{category}' category: ")
+    update_expense_amount(category, amount)
 
 cursor.close()
 sqliteConnection.close()
