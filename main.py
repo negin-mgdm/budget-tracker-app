@@ -25,20 +25,28 @@ def update_expense_amount(category, amount):
 
 
 def main_menu():
+
     menu = '''1. Add a new expense category 
 2. Update a category amount
+0. Exit
 Please enter your option from the above menu: '''
 
-    option = int(input(menu))
-    if option == 1:
-        new_expense = input("Enter a new expense category: ")
-        add_expense_category(new_expense)
+    while True:
+        option = int(input(menu))
 
-    elif option == 2:
-        category = input("Insert the category you wish to update the amount: ")
-        amount = input(
-            f"Insert the updated expense amount for the '{category}' category: ")
-        update_expense_amount(category, amount)
+        if option == 1:
+            new_expense = input("Enter a new expense category: ")
+            add_expense_category(new_expense)
+
+        elif option == 2:
+            category = input(
+                "Insert the category you wish to update the amount: ")
+            amount = input(
+                f"Insert the updated expense amount for the '{category}' category: ")
+            update_expense_amount(category, amount)
+
+        elif option == 0:
+            break
 
 
 sqliteConnection = sqlite3.connect("sql.db")
