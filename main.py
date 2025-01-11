@@ -24,6 +24,14 @@ def update_expense_amount(category, amount):
         sqliteConnection.commit()
 
 
+def delete_expense_category(id):
+    with open("sql/delete_expense_category.sql", "r") as sql:
+        query = sql.read()
+
+        cursor.execute(query, id)
+        sqliteConnection.commit()
+
+
 def main_menu():
 
     menu = '''1. Add a new expense category 
