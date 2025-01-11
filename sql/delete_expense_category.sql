@@ -1,0 +1,1 @@
+DELETE FROM Expenses WHERE expense_id = ?
