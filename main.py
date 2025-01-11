@@ -36,6 +36,7 @@ def main_menu():
 
     menu = '''1. Add a new expense category 
 2. Update a category amount
+3. Delete an expense category
 0. Exit
 Please enter your option from the above menu: '''
 
@@ -52,6 +53,11 @@ Please enter your option from the above menu: '''
             amount = input(
                 f"Insert the updated expense amount for the '{category}' category: ")
             update_expense_amount(category, amount)
+
+        elif option == 3:
+            id = input(
+                "Please enter the category id you wish to remove from the 'Expenses' table: ")
+            delete_expense_category(id)
 
         elif option == 0:
             break
