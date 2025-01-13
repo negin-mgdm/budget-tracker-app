@@ -32,6 +32,13 @@ def delete_expense_category(id):
         sqliteConnection.commit()
 
 
+def create_income_table():
+    with open("sql/create_income_table.sql", "r") as sql:
+        query = sql.read()
+
+    cursor.execute(query)
+
+
 def main_menu():
 
     menu = '''1. Add a new expense category 
@@ -67,6 +74,7 @@ sqliteConnection = sqlite3.connect("sql.db")
 cursor = sqliteConnection.cursor()
 
 create_expense_table()
+create_income_table()
 main_menu()
 
 cursor.close()
