@@ -16,6 +16,14 @@ def add_expense_category(expense):
     sqliteConnection.commit()
 
 
+def add_income_category(income, category):
+    with open("sql/insert_income_category.sql", "r") as sql:
+        query = sql.read()
+
+    cursor.execute(query, (income, category))
+    sqliteConnection.commit()
+
+
 def update_expense_amount(category, amount):
     with open("sql/update_expense_amount.sql", "r") as sql:
         query = sql.read()
@@ -75,6 +83,11 @@ cursor = sqliteConnection.cursor()
 
 create_expense_table()
 create_income_table()
+
+income_amount = input("Enter amount for the income: ")
+income_category = input("Enter an income category: ")
+add_income_category(income_amount, income_category)
+
 main_menu()
 
 cursor.close()
