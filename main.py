@@ -47,6 +47,11 @@ def create_income_table():
     cursor.execute(query)
 
 
+def setup_tables():
+    create_expense_table()
+    create_income_table()
+
+
 def main_menu():
 
     menu = '''1. Add a new expense category 
@@ -87,8 +92,8 @@ Please enter your option from the above menu: '''
 sqliteConnection = sqlite3.connect("sql.db")
 cursor = sqliteConnection.cursor()
 
-create_expense_table()
-create_income_table()
+
+setup_tables()
 
 main_menu()
 
