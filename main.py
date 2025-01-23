@@ -66,6 +66,7 @@ def main_menu():
 2. Update a category amount
 3. Delete an expense category
 4. Add income category and amount
+5. Delete an income category
 0. Exit
 Please enter your option from the above menu: '''
 
@@ -93,17 +94,17 @@ Please enter your option from the above menu: '''
             income_category = input("Enter an income category: ")
             add_income_category(income_amount, income_category)
 
+        elif option == 5:
+            category = input(
+                "Please enter the category you wish to remove from the 'Income' table: ")
+            delete_income_by_category(category)
+
         elif option == 0:
             break
 
 
 sqliteConnection = sqlite3.connect("sql.db")
 cursor = sqliteConnection.cursor()
-
-category = input(
-    "Please enter the category you wish to remove from the 'Income' table: ")
-
-delete_income_by_category(category)
 
 setup_tables()
 
