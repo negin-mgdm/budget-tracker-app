@@ -1,0 +1,1 @@
+DELETE FROM Income WHERE category = ?;

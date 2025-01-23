@@ -47,6 +47,14 @@ def create_income_table():
     cursor.execute(query)
 
 
+def delete_income_by_category(category):
+    with open("sql/delete_income_category.sql", "r") as sql:
+        query = sql.read()
+
+        cursor.execute(query, category)
+        sqliteConnection.commit()
+
+
 def setup_tables():
     create_expense_table()
     create_income_table()
@@ -92,6 +100,10 @@ Please enter your option from the above menu: '''
 sqliteConnection = sqlite3.connect("sql.db")
 cursor = sqliteConnection.cursor()
 
+category = input(
+    "Please enter the category you wish to remove from the 'Income' table: ")
+
+delete_income_by_category(category)
 
 setup_tables()
 
