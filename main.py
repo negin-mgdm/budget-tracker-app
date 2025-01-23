@@ -51,7 +51,7 @@ def delete_income_by_category(category):
     with open("sql/delete_income_category.sql", "r") as sql:
         query = sql.read()
 
-        cursor.execute(query, category)
+        cursor.execute(query, (category,))
         sqliteConnection.commit()
 
 
