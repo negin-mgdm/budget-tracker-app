@@ -1,1 +1,1 @@
-INSERT INTO Income (category, amount) VALUES (?, ?) ;
+INSERT INTO Income (amount, category) VALUES (?, ?) ;
