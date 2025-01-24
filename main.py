@@ -55,6 +55,19 @@ def delete_income_by_category(category):
         sqliteConnection.commit()
 
 
+def track_spending():
+    with open("sql/fetch_spending.sql", "r") as sql:
+        query = sql.read()
+
+        cursor.execute(query)
+        amounts = cursor.fetchall()
+
+        spendings = 0
+        for amount in amounts:
+            spendings += amount[0]
+        return spendings
+
+
 def setup_tables():
     create_expense_table()
     create_income_table()
@@ -105,6 +118,9 @@ Please enter your option from the above menu: '''
 
 sqliteConnection = sqlite3.connect("sql.db")
 cursor = sqliteConnection.cursor()
+
+all_expenses = track_spending()
+print(all_expenses)
 
 setup_tables()
 
