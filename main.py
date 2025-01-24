@@ -80,6 +80,7 @@ def main_menu():
 3. Delete an expense category
 4. Add income category and amount
 5. Delete an income category
+6. Fetch all spendings
 0. Exit
 Please enter your option from the above menu: '''
 
@@ -112,15 +113,16 @@ Please enter your option from the above menu: '''
                 "Please enter the category you wish to remove from the 'Income' table: ")
             delete_income_by_category(category)
 
+        elif option == 6:
+            all_expenses = track_spending()
+            print(f"Your total spending is: {all_expenses}")
+
         elif option == 0:
             break
 
 
 sqliteConnection = sqlite3.connect("sql.db")
 cursor = sqliteConnection.cursor()
-
-all_expenses = track_spending()
-print(all_expenses)
 
 setup_tables()
 
