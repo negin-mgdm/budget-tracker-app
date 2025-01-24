@@ -68,6 +68,19 @@ def track_spending():
         return spendings
 
 
+def track_income():
+    with open("sql/fetch_income.sql", "r") as sql:
+        query = sql.read()
+
+        cursor.execute(query)
+        amounts = cursor.fetchall()
+
+        income = 0
+        for amount in amounts:
+            income += amount[0]
+        return income
+
+
 def setup_tables():
     create_expense_table()
     create_income_table()
@@ -123,6 +136,8 @@ Please enter your option from the above menu: '''
 
 sqliteConnection = sqlite3.connect("sql.db")
 cursor = sqliteConnection.cursor()
+
+print(track_income())
 
 setup_tables()
 
