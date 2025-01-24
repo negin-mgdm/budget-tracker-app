@@ -94,6 +94,7 @@ def main_menu():
 4. Add income category and amount
 5. Delete an income category
 6. Fetch all spendings
+7. Fetch income
 0. Exit
 Please enter your option from the above menu: '''
 
@@ -130,14 +131,16 @@ Please enter your option from the above menu: '''
             all_expenses = track_spending()
             print(f"Your total spending is: {all_expenses}")
 
+        elif option == 7:
+            all_income = track_income()
+            print(f"Your total income is: {all_income}")
+
         elif option == 0:
             break
 
 
 sqliteConnection = sqlite3.connect("sql.db")
 cursor = sqliteConnection.cursor()
-
-print(track_income())
 
 setup_tables()
 
