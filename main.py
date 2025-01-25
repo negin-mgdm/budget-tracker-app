@@ -81,6 +81,16 @@ def track_income():
         return income
 
 
+def view_income_by_category(category):
+    with open("sql/fetch_income_by_category.sql", "r") as sql:
+        query = sql.read()
+
+        cursor.execute(query, (category,))
+        row = cursor.fetchone()
+
+        return row[0]
+
+
 def setup_tables():
     create_expense_table()
     create_income_table()
@@ -141,6 +151,9 @@ Please enter your option from the above menu: '''
 
 sqliteConnection = sqlite3.connect("sql.db")
 cursor = sqliteConnection.cursor()
+
+category = input("Enter the category you wish to see the income for: ")
+print(view_income_by_category(category))
 
 setup_tables()
 
