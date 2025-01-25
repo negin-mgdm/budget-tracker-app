@@ -1,0 +1,1 @@
+SELECT amount FROM Expenses WHERE category = ?;
