@@ -116,6 +116,7 @@ def main_menu():
 6. Fetch all spendings
 7. Fetch income
 8. View income by category
+9. View expenses by category
 0. Exit
 Please enter your option from the above menu: '''
 
@@ -163,15 +164,19 @@ Please enter your option from the above menu: '''
             print(
                 f"The income for '{category}' category is {income_by_category}.")
 
+        elif option == 9:
+            category = input(
+                "Enter the category you wish to see the expenses for: ")
+            expenses_by_category = view_expenses_by_category(category)
+            print(
+                f"The income for '{category}' category is {expenses_by_category}.")
+
         elif option == 0:
             break
 
 
 sqliteConnection = sqlite3.connect("sql.db")
 cursor = sqliteConnection.cursor()
-
-category = input("Enter the category you wish to see the expenses for: ")
-print(view_expenses_by_category(category))
 
 setup_tables()
 
