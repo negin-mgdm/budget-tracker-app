@@ -105,6 +105,7 @@ def main_menu():
 5. Delete an income category
 6. Fetch all spendings
 7. Fetch income
+8. View income by category
 0. Exit
 Please enter your option from the above menu: '''
 
@@ -145,15 +146,19 @@ Please enter your option from the above menu: '''
             all_income = track_income()
             print(f"Your total income is: {all_income}")
 
+        elif option == 8:
+            category = input(
+                "Enter the category you wish to see the income for: ")
+            income_by_category = view_income_by_category(category)
+            print(
+                f"The income for '{category}' category is {income_by_category}.")
+
         elif option == 0:
             break
 
 
 sqliteConnection = sqlite3.connect("sql.db")
 cursor = sqliteConnection.cursor()
-
-category = input("Enter the category you wish to see the income for: ")
-print(view_income_by_category(category))
 
 setup_tables()
 
