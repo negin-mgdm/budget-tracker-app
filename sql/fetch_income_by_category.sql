@@ -1,0 +1,1 @@
+SELECT amount FROM Income WHERE category = ?;
