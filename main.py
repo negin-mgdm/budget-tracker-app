@@ -91,6 +91,12 @@ def view_income_by_category(category):
         return row[0]
 
 
+def budget_calculator():
+    total_spending = track_spending()
+    total_income = track_income()
+    return total_income - total_spending
+
+
 def view_expenses_by_category(category):
     with open("sql/fetch_expenses_by_category.sql", "r") as sql:
         query = sql.read()
@@ -177,6 +183,8 @@ Please enter your option from the above menu: '''
 
 sqliteConnection = sqlite3.connect("sql.db")
 cursor = sqliteConnection.cursor()
+
+print(budget_calculator())
 
 setup_tables()
 
