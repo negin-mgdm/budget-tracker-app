@@ -123,6 +123,7 @@ def main_menu():
 7. Fetch income
 8. View income by category
 9. View expenses by category
+10. Budget
 0. Exit
 Please enter your option from the above menu: '''
 
@@ -177,14 +178,17 @@ Please enter your option from the above menu: '''
             print(
                 f"The income for '{category}' category is {expenses_by_category}.")
 
+        elif option == 10:
+            message = "Your budget is: "
+            budget = budget_calculator()
+            print(f"{message}{budget}")
+
         elif option == 0:
             break
 
 
 sqliteConnection = sqlite3.connect("sql.db")
 cursor = sqliteConnection.cursor()
-
-print(budget_calculator())
 
 setup_tables()
 
