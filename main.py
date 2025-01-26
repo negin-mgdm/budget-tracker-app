@@ -130,61 +130,62 @@ Please enter your option from the above menu: '''
     while True:
         option = int(input(menu))
 
-        if option == 1:
-            new_expense = input("Enter a new expense category: ")
-            add_expense_category(new_expense)
+        match (option):
+            case 1:
+                new_expense = input("Enter a new expense category: ")
+                add_expense_category(new_expense)
 
-        elif option == 2:
-            category = input(
-                "Insert the category you wish to update the amount: ")
-            amount = input(
-                f"Insert the updated expense amount for the '{category}' category: ")
-            update_expense_amount(category, amount)
+            case 2:
+                category = input(
+                    "Insert the category you wish to update the amount: ")
+                amount = input(
+                    f"Insert the updated expense amount for the '{category}' category: ")
+                update_expense_amount(category, amount)
 
-        elif option == 3:
-            id = input(
-                "Please enter the category id you wish to remove from the 'Expenses' table: ")
-            delete_expense_category(id)
+            case 3:
+                id = input(
+                    "Please enter the category id you wish to remove from the 'Expenses' table: ")
+                delete_expense_category(id)
 
-        elif option == 4:
-            income_amount = input("Enter amount for the income: ")
-            income_category = input("Enter an income category: ")
-            add_income_category(income_amount, income_category)
+            case 4:
+                income_amount = input("Enter amount for the income: ")
+                income_category = input("Enter an income category: ")
+                add_income_category(income_amount, income_category)
 
-        elif option == 5:
-            category = input(
-                "Please enter the category you wish to remove from the 'Income' table: ")
-            delete_income_by_category(category)
+            case 5:
+                category = input(
+                    "Please enter the category you wish to remove from the 'Income' table: ")
+                delete_income_by_category(category)
 
-        elif option == 6:
-            all_expenses = track_spending()
-            print(f"Your total spending is: {all_expenses}")
+            case 6:
+                all_expenses = track_spending()
+                print(f"Your total spending is: {all_expenses}")
 
-        elif option == 7:
-            all_income = track_income()
-            print(f"Your total income is: {all_income}")
+            case 7:
+                all_income = track_income()
+                print(f"Your total income is: {all_income}")
 
-        elif option == 8:
-            category = input(
-                "Enter the category you wish to see the income for: ")
-            income_by_category = view_income_by_category(category)
-            print(
-                f"The income for '{category}' category is {income_by_category}.")
+            case 8:
+                category = input(
+                    "Enter the category you wish to see the income for: ")
+                income_by_category = view_income_by_category(category)
+                print(
+                    f"The income for '{category}' category is {income_by_category}.")
 
-        elif option == 9:
-            category = input(
-                "Enter the category you wish to see the expenses for: ")
-            expenses_by_category = view_expenses_by_category(category)
-            print(
-                f"The income for '{category}' category is {expenses_by_category}.")
+            case 9:
+                category = input(
+                    "Enter the category you wish to see the expenses for: ")
+                expenses_by_category = view_expenses_by_category(category)
+                print(
+                    f"The income for '{category}' category is {expenses_by_category}.")
 
-        elif option == 10:
-            message = "Your budget is: "
-            budget = budget_calculator()
-            print(f"{message}{budget}")
+            case 10:
+                message = "Your budget is: "
+                budget = budget_calculator()
+                print(f"{message}{budget}")
 
-        elif option == 0:
-            break
+            case 0:
+                break
 
 
 sqliteConnection = sqlite3.connect("sql.db")
