@@ -96,13 +96,16 @@ class IncomeService:
             sqliteConnection.commit()
 
 
-def budget_calculator():
-    expense = ExpenseService()
-    total_spending = expense.track_spending()
+class BudgetService:
 
-    income = IncomeService()
-    total_income = income.track_income()
-    return total_income - total_spending
+    def budget_calculator(self):
+        expense = ExpenseService()
+        total_spending = expense.track_spending()
+
+        income = IncomeService()
+        total_income = income.track_income()
+
+        return total_income - total_spending
 
 
 def setup_tables():
@@ -130,6 +133,7 @@ Please enter your option from the above menu: '''
 
     expense = ExpenseService()
     income = IncomeService()
+    budget = BudgetService()
 
     while True:
         option = int(input(menu))
@@ -186,8 +190,8 @@ Please enter your option from the above menu: '''
 
             case 10:
                 message = "Your budget is: "
-                budget = budget_calculator()
-                print(f"{message}{budget}")
+                calculated_budget = budget.budget_calculator()
+                print(f"{message}{calculated_budget}")
 
             case 0:
                 break
