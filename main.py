@@ -1,19 +1,55 @@
 import sqlite3
 
 
-def create_expense_table():
-    with open("sql/create_table_expenses.sql", "r") as sql:
-        query = sql.read()
+class ExpenseService:
 
-    cursor.execute(query)
+    def create_expense_table(self):
+        with open("sql/create_table_expenses.sql", "r") as sql:
+            query = sql.read()
 
+        cursor.execute(query)
 
-def add_expense_category(expense):
-    with open("sql/insert_expense_category.sql", "r") as sql:
-        query = sql.read()
+    def add_expense_category(self, expense):
+        with open("sql/insert_expense_category.sql", "r") as sql:
+            query = sql.read()
 
-    cursor.execute(query, (expense,))
-    sqliteConnection.commit()
+        cursor.execute(query, (expense,))
+        sqliteConnection.commit()
+
+    def update_expense_amount(self, category, amount):
+        with open("sql/update_expense_amount.sql", "r") as sql:
+            query = sql.read()
+
+            cursor.execute(query, (amount, category))
+            sqliteConnection.commit()
+
+    def delete_expense_category(self, id):
+        with open("sql/delete_expense_category.sql", "r") as sql:
+            query = sql.read()
+
+            cursor.execute(query, id)
+            sqliteConnection.commit()
+
+    def track_spending(self):
+        with open("sql/fetch_spending.sql", "r") as sql:
+            query = sql.read()
+
+            cursor.execute(query)
+            amounts = cursor.fetchall()
+
+            spendings = 0
+            for amount in amounts:
+                spendings += amount[0]
+            return spendings
+
+    def view_expenses_by_category(self, category):
+        with open("sql/fetch_expenses_by_category.sql", "r") as sql:
+            query = sql.read()
+
+            cursor.execute(query, (category,))
+            row = cursor.fetchone()
+
+            return row[0]
 
 
 def add_income_category(income, category):
@@ -22,22 +58,6 @@ def add_income_category(income, category):
 
     cursor.execute(query, (income, category))
     sqliteConnection.commit()
-
-
-def update_expense_amount(category, amount):
-    with open("sql/update_expense_amount.sql", "r") as sql:
-        query = sql.read()
-
-        cursor.execute(query, (amount, category))
-        sqliteConnection.commit()
-
-
-def delete_expense_category(id):
-    with open("sql/delete_expense_category.sql", "r") as sql:
-        query = sql.read()
-
-        cursor.execute(query, id)
-        sqliteConnection.commit()
 
 
 def create_income_table():
@@ -53,19 +73,6 @@ def delete_income_by_category(category):
 
         cursor.execute(query, (category,))
         sqliteConnection.commit()
-
-
-def track_spending():
-    with open("sql/fetch_spending.sql", "r") as sql:
-        query = sql.read()
-
-        cursor.execute(query)
-        amounts = cursor.fetchall()
-
-        spendings = 0
-        for amount in amounts:
-            spendings += amount[0]
-        return spendings
 
 
 def track_income():
@@ -92,23 +99,17 @@ def view_income_by_category(category):
 
 
 def budget_calculator():
-    total_spending = track_spending()
+    expense = ExpenseService()
+    total_spending = expense.track_spending()
+
     total_income = track_income()
     return total_income - total_spending
 
 
-def view_expenses_by_category(category):
-    with open("sql/fetch_expenses_by_category.sql", "r") as sql:
-        query = sql.read()
-
-        cursor.execute(query, (category,))
-        row = cursor.fetchone()
-
-        return row[0]
-
-
 def setup_tables():
-    create_expense_table()
+    expense = ExpenseService()
+    expense.create_expense_table()
+
     create_income_table()
 
 
@@ -127,25 +128,26 @@ def main_menu():
 0. Exit
 Please enter your option from the above menu: '''
 
+    expense = ExpenseService()
+
     while True:
         option = int(input(menu))
 
         match (option):
             case 1:
                 new_expense = input("Enter a new expense category: ")
-                add_expense_category(new_expense)
-
+                expense.add_expense_category(new_expense)
             case 2:
                 category = input(
                     "Insert the category you wish to update the amount: ")
                 amount = input(
                     f"Insert the updated expense amount for the '{category}' category: ")
-                update_expense_amount(category, amount)
+                expense.update_expense_amount(category, amount)
 
             case 3:
                 id = input(
                     "Please enter the category id you wish to remove from the 'Expenses' table: ")
-                delete_expense_category(id)
+                expense.delete_expense_category(id)
 
             case 4:
                 income_amount = input("Enter amount for the income: ")
@@ -158,7 +160,7 @@ Please enter your option from the above menu: '''
                 delete_income_by_category(category)
 
             case 6:
-                all_expenses = track_spending()
+                all_expenses = expense.track_spending()
                 print(f"Your total spending is: {all_expenses}")
 
             case 7:
@@ -175,7 +177,8 @@ Please enter your option from the above menu: '''
             case 9:
                 category = input(
                     "Enter the category you wish to see the expenses for: ")
-                expenses_by_category = view_expenses_by_category(category)
+                expenses_by_category = expense.view_expenses_by_category(
+                    category)
                 print(
                     f"The income for '{category}' category is {expenses_by_category}.")
 
