@@ -30,7 +30,7 @@ Please enter your option from the above menu: '''
 
     expense = ExpenseService(cursor, sqliteConnection)
     income = IncomeService(cursor, sqliteConnection)
-    budget = BudgetService(cursor, sqliteConnection)
+    budget = BudgetService(expense, income)
 
     while True:
         option = int(input(menu))
