@@ -1,19 +1,8 @@
 import sqlite3
 
+from services.BudgetService import BudgetService
 from services.ExpenseService import ExpenseService
 from services.IncomeService import IncomeService
-
-
-class BudgetService:
-
-    def budget_calculator(self):
-        expense = ExpenseService()
-        total_spending = expense.track_spending()
-
-        income = IncomeService()
-        total_income = income.track_income()
-
-        return total_income - total_spending
 
 
 def setup_tables():
@@ -41,7 +30,7 @@ Please enter your option from the above menu: '''
 
     expense = ExpenseService(cursor, sqliteConnection)
     income = IncomeService(cursor, sqliteConnection)
-    budget = BudgetService()
+    budget = BudgetService(cursor, sqliteConnection)
 
     while True:
         option = int(input(menu))
