@@ -1,50 +1,7 @@
 import sqlite3
 
 from services.ExpenseService import ExpenseService
-
-
-class IncomeService:
-
-    def create_income_table(self):
-        with open("sql/create_income_table.sql", "r") as sql:
-            query = sql.read()
-
-        cursor.execute(query)
-
-    def add_income_category(self, income, category):
-        with open("sql/insert_income_category.sql", "r") as sql:
-            query = sql.read()
-
-        cursor.execute(query, (income, category))
-        sqliteConnection.commit()
-
-    def track_income(self):
-        with open("sql/fetch_income.sql", "r") as sql:
-            query = sql.read()
-
-            cursor.execute(query)
-            amounts = cursor.fetchall()
-
-            income = 0
-            for amount in amounts:
-                income += amount[0]
-            return income
-
-    def view_income_by_category(self, category):
-        with open("sql/fetch_income_by_category.sql", "r") as sql:
-            query = sql.read()
-
-            cursor.execute(query, (category,))
-            row = cursor.fetchone()
-
-            return row[0]
-
-    def delete_income_by_category(self, category):
-        with open("sql/delete_income_category.sql", "r") as sql:
-            query = sql.read()
-
-            cursor.execute(query, (category,))
-            sqliteConnection.commit()
+from services.IncomeService import IncomeService
 
 
 class BudgetService:
@@ -63,7 +20,7 @@ def setup_tables():
     expense = ExpenseService(cursor, sqliteConnection)
     expense.create_expense_table()
 
-    income = IncomeService()
+    income = IncomeService(cursor, sqliteConnection)
     income.create_income_table()
 
 
@@ -83,7 +40,7 @@ def main_menu():
 Please enter your option from the above menu: '''
 
     expense = ExpenseService(cursor, sqliteConnection)
-    income = IncomeService()
+    income = IncomeService(cursor, sqliteConnection)
     budget = BudgetService()
 
     while True:
